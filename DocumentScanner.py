@@ -74,17 +74,9 @@ def DocumentScanner(address):
     M = cv.getPerspectiveTransform(extremePoints, dst)
     warped = cv.warpPerspective(thresh, M, (w, h))
 
-    plt.figure(figsize=[15, 15])
-    plt.subplot(121)
-    plt.imshow(img)
-    plt.title("original")
-    plt.subplot(122)
-    plt.imshow(warped, cmap='gray')
-    plt.title("warped")
-    plt.waitforbuttonpress()
-    plt.close("all")
+    return warped
 
 
-for photo in os.listdir(directory):
+for index, photo in enumerate(os.listdir(directory)):
     address = directory + "\\" + photo
-    DocumentScanner(address)
+    cv.imwrite("transformed{}.jpg".format(index), DocumentScanner(address))
